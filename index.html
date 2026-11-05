@@ -50,7 +50,7 @@
             padding: 0 20px;
         }
 
-        /* Header */
+        /* Záhlaví */
         header {
             background: var(--white);
             border-bottom: 1px solid var(--border);
@@ -110,7 +110,7 @@
             color: var(--white);
         }
 
-        /* Hero */
+        /* Úvodní sekce (Hero) */
         .hero {
             background: linear-gradient(180deg, var(--white) 0%, var(--gray-50) 100%);
             padding: 48px 0 36px 0;
@@ -185,7 +185,7 @@
             background: var(--gray-100);
         }
 
-        /* Trust Cards */
+        /* Důvěryhodné štítky */
         .trust-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -216,7 +216,7 @@
             color: var(--gray-600);
         }
 
-        /* Sections */
+        /* Nadpisy sekcí */
         .section-header {
             text-align: center;
             margin: 48px 0 32px 0;
@@ -232,6 +232,7 @@
             font-size: 1rem;
         }
 
+        /* Nabídka služeb */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -272,7 +273,7 @@
             line-height: 1.5;
         }
 
-        /* Coverage */
+        /* Lokalita působení */
         .coverage-box {
             background: var(--dark);
             color: var(--white);
@@ -306,7 +307,7 @@
             font-weight: 500;
         }
 
-        /* Form & Contact Section */
+        /* Formulář a kontaktní sekce */
         .contact-container {
             background: var(--white);
             border: 1px solid var(--border);
@@ -328,7 +329,6 @@
             }
         }
 
-        /* Form Styles */
         .inquiry-form {
             display: flex;
             flex-direction: column;
@@ -367,7 +367,7 @@
             .form-row { grid-template-columns: 1fr 1fr; }
         }
 
-        /* Direct Contact Info */
+        /* Přímý kontakt vpravo od formuláře */
         .direct-info {
             background: var(--gray-50);
             border: 1px solid var(--border);
@@ -407,7 +407,7 @@
             text-decoration: none;
         }
 
-        /* Footer */
+        /* Patička */
         footer {
             border-top: 1px solid var(--border);
             padding: 24px 0;
@@ -416,7 +416,7 @@
             color: var(--gray-600);
         }
 
-        /* Sticky Mobile Bar */
+        /* Spodní lišta pro rychlé volání na mobilu */
         .mobile-bar {
             display: flex;
             position: fixed;
@@ -462,7 +462,7 @@
 </head>
 <body>
 
-    <!-- Header -->
+    <!-- Záhlaví stránky -->
     <header>
         <div class="container nav-content">
             <a href="#" class="brand">
@@ -479,7 +479,7 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
+    <!-- Úvodní sekce (Hero) -->
     <section class="hero">
         <div class="container">
             <div class="hero-badge">
@@ -500,7 +500,7 @@
                 </a>
             </div>
 
-            <!-- Trust Bar -->
+            <!-- Karty důvěryhodnosti -->
             <div class="trust-grid">
                 <div class="trust-card">
                     <i data-lucide="badge-check" style="width: 28px; height: 28px;"></i>
@@ -527,7 +527,7 @@
         </div>
     </section>
 
-    <!-- Services Section -->
+    <!-- Přehled služeb -->
     <main class="container">
         <div class="section-header">
             <h3>S čím vám mohu pomoci</h3>
@@ -572,7 +572,7 @@
             </div>
         </div>
 
-        <!-- Coverage Banner -->
+        <!-- Pokrytí v Ostravě -->
         <div class="coverage-box">
             <h4>Lokalita působení: Ostrava a blízké okolí</h4>
             <p>Jsem přímo z Hrabové. Neplatíte zbytečné peníze za daleký dojezd firem z jiných okresů.</p>
@@ -585,7 +585,7 @@
             </div>
         </div>
 
-        <!-- Contact & Inquiry Form Section -->
+        <!-- Kontaktní formulář (Web3Forms) -->
         <div id="poptavka" class="contact-container">
             <div class="section-header" style="margin-top: 0;">
                 <h3>Napište poptávku</h3>
@@ -593,38 +593,43 @@
             </div>
 
             <div class="form-grid">
-                <!-- Working Form -->
-                <form class="inquiry-form" action="https://formsubmit.co/elektro.mam@email.cz" method="POST">
-                    <!-- FormSubmit Configuration -->
-                    <input type="hidden" name="_subject" value="Nová poptávka z webu Elektro MaM!">
-                    <input type="hidden" name="_captcha" value="false">
-                    <input type="hidden" name="_template" value="table">
+                <!-- Funkční formulář -->
+                <form class="inquiry-form" action="https://api.web3forms.com/submit" method="POST">
+                    <!-- Tvůj aktivní klíč z Web3Forms -->
+                    <input type="hidden" name="access_key" value="0ec24fab-109b-487b-b7ec-d2dec27c123d">
+                    
+                    <!-- Nastavení zprávy -->
+                    <input type="hidden" name="subject" value="Nová poptávka z webu Elektro MaM!">
+                    <input type="hidden" name="from_name" value="Web Elektro MaM">
+                    
+                    <!-- Ochrana proti spambotům -->
+                    <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
 
                     <div class="form-row">
                         <div class="form-group">
                             <label for="name">Vaše jméno *</label>
-                            <input type="text" id="name" name="Jméno" placeholder="Např. Jan Novák" required>
+                            <input type="text" id="name" name="name" placeholder="Např. Jan Novák" required>
                         </div>
                         <div class="form-group">
                             <label for="phone">Telefonní číslo *</label>
-                            <input type="tel" id="phone" name="Telefon" placeholder="Např. 777 123 456" required>
+                            <input type="tel" id="phone" name="phone" placeholder="Např. 777 123 456" required>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
                             <label for="email">Váš e-mail</label>
-                            <input type="email" id="email" name="Email" placeholder="vas@email.cz">
+                            <input type="email" id="email" name="email" placeholder="vas@email.cz">
                         </div>
                         <div class="form-group">
                             <label for="location">Městská část / adresa</label>
-                            <input type="text" id="location" name="Lokalita" placeholder="Např. Ostrava-Poruba, Výškovice">
+                            <input type="text" id="location" name="location" placeholder="Např. Ostrava-Poruba, Výškovice">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="message">Co potřebujete zapojit nebo opravit? *</label>
-                        <textarea id="message" name="Popis_prace" rows="4" placeholder="Např. potřebuji zapojit novou indukční desku a potvrdit záruční list..." required></textarea>
+                        <textarea id="message" name="message" rows="4" placeholder="Např. potřebuji zapojit novou indukční desku a potvrdit záruční list..." required></textarea>
                     </div>
 
                     <button type="submit" class="btn btn-primary" style="margin-top: 8px;">
@@ -633,7 +638,7 @@
                     </button>
                 </form>
 
-                <!-- Direct Details Sidebar -->
+                <!-- Přímý kontakt -->
                 <div class="direct-info">
                     <h4 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 4px;">Raději rovnou zavoláte?</h4>
                     <p style="font-size: 0.9rem; color: var(--gray-600); margin-bottom: 12px;">Při haváriích a akutních závadách volejte kdykoliv přímo na telefon.</p>
@@ -674,14 +679,14 @@
         </div>
     </main>
 
-    <!-- Footer -->
+    <!-- Patička -->
     <footer>
         <div class="container">
             <p>© 2026 Elektro MaM – Spolehlivé elektroinstalace pro Ostravu a okolí</p>
         </div>
     </footer>
 
-    <!-- Sticky Mobile Call/Message Bar -->
+    <!-- Plovoucí lišta pro mobilní zařízení -->
     <div class="mobile-bar">
         <a href="tel:+420703371479" class="mobile-btn mobile-btn-call">
             <i data-lucide="phone" style="width: 18px; height: 18px;"></i>
@@ -693,6 +698,7 @@
         </a>
     </div>
 
+    <!-- Inicializace ikon -->
     <script>
         lucide.createIcons();
     </script>
