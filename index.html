@@ -185,7 +185,7 @@
             background: var(--gray-100);
         }
 
-        /* Důvěryhodné štítky */
+        /* Karty důvěryhodnosti */
         .trust-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -273,7 +273,7 @@
             line-height: 1.5;
         }
 
-        /* Lokalita působení */
+        /* Pokrytí lokality */
         .coverage-box {
             background: var(--dark);
             color: var(--white);
@@ -307,7 +307,7 @@
             font-weight: 500;
         }
 
-        /* Formulář a kontaktní sekce */
+        /* Formulář a kontakt */
         .contact-container {
             background: var(--white);
             border: 1px solid var(--border);
@@ -365,6 +365,28 @@
         }
         @media (min-width: 500px) {
             .form-row { grid-template-columns: 1fr 1fr; }
+        }
+
+        /* Stavová hláška po odeslání */
+        .form-status {
+            display: none;
+            padding: 14px 18px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-align: center;
+            margin-top: 12px;
+            line-height: 1.5;
+        }
+        .status-success {
+            background-color: #dcfce7;
+            color: #15803d;
+            border: 1px solid #86efac;
+        }
+        .status-error {
+            background-color: #fee2e2;
+            color: #b91c1c;
+            border: 1px solid #fca5a5;
         }
 
         /* Přímý kontakt vpravo od formuláře */
@@ -462,7 +484,7 @@
 </head>
 <body>
 
-    <!-- Záhlaví stránky -->
+    <!-- Záhlaví -->
     <header>
         <div class="container nav-content">
             <a href="#" class="brand">
@@ -585,7 +607,7 @@
             </div>
         </div>
 
-        <!-- Kontaktní formulář (Web3Forms) -->
+        <!-- Kontaktní formulář (Odesílání bez opuštění stránky) -->
         <div id="poptavka" class="contact-container">
             <div class="section-header" style="margin-top: 0;">
                 <h3>Napište poptávku</h3>
@@ -593,8 +615,8 @@
             </div>
 
             <div class="form-grid">
-                <!-- Funkční formulář -->
-                <form class="inquiry-form" action="https://api.web3forms.com/submit" method="POST">
+                <!-- Formulář s ID pro JavaScript -->
+                <form id="inquiryForm" class="inquiry-form">
                     <!-- Tvůj aktivní klíč z Web3Forms -->
                     <input type="hidden" name="access_key" value="0ec24fab-109b-487b-b7ec-d2dec27c123d">
                     
@@ -602,8 +624,8 @@
                     <input type="hidden" name="subject" value="Nová poptávka z webu Elektro MaM!">
                     <input type="hidden" name="from_name" value="Web Elektro MaM">
                     
-                    <!-- Ochrana proti spambotům -->
-                    <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+                    <!-- Ochrana proti spamu -->
+                    <input type="checkbox" name="botcheck" style="display: none;">
 
                     <div class="form-row">
                         <div class="form-group">
@@ -632,10 +654,13 @@
                         <textarea id="message" name="message" rows="4" placeholder="Např. potřebuji zapojit novou indukční desku a potvrdit záruční list..." required></textarea>
                     </div>
 
-                    <button type="submit" class="btn btn-primary" style="margin-top: 8px;">
+                    <button type="submit" id="submitBtn" class="btn btn-primary" style="margin-top: 8px;">
                         <i data-lucide="send" style="width: 18px; height: 18px;"></i>
-                        Odeslat nezávaznou poptávku
+                        <span>Odeslat nezávaznou poptávku</span>
                     </button>
+
+                    <!-- Výsledná hláška přímo pod tlačítkem -->
+                    <div id="formStatus" class="form-status"></div>
                 </form>
 
                 <!-- Přímý kontakt -->
@@ -698,9 +723,61 @@
         </a>
     </div>
 
-    <!-- Inicializace ikon -->
+    <!-- Skripty -->
     <script>
+        // Inicializace ikon
         lucide.createIcons();
+
+        // Odeslání formuláře na pozadí bez opuštění stránky
+        const form = document.getElementById('inquiryForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const statusBox = document.getElementById('formStatus');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Vizuální indikace odesílání
+            submitBtn.disabled = true;
+            submitBtn.style.opacity = '0.75';
+            submitBtn.querySelector('span').textContent = 'Odesílám poptávku...';
+            statusBox.style.display = 'none';
+
+            const formData = new FormData(form);
+            const object = Object.fromEntries(formData);
+            const json = JSON.stringify(object);
+
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: json
+            })
+            .then(async (response) => {
+                let res = await response.json();
+                if (response.status === 200) {
+                    statusBox.className = 'form-status status-success';
+                    statusBox.innerHTML = '✓ Děkuji! Vaše poptávka byla úspěšně odeslána. Brzy se vám ozvu zpět.';
+                    statusBox.style.display = 'block';
+                    form.reset();
+                } else {
+                    statusBox.className = 'form-status status-error';
+                    statusBox.innerHTML = '✕ Odeslání se nezdařilo: ' + (res.message || 'Zkuste to prosím znovu nebo zavolejte přímo na 703 371 479.');
+                    statusBox.style.display = 'block';
+                }
+            })
+            .catch(error => {
+                statusBox.className = 'form-status status-error';
+                statusBox.innerHTML = '✕ Došlo k chybě připojení. Zavolejte mi prosím přímo na 703 371 479.';
+                statusBox.style.display = 'block';
+            })
+            .finally(() => {
+                submitBtn.disabled = false;
+                submitBtn.style.opacity = '1';
+                submitBtn.querySelector('span').textContent = 'Odeslat nezávaznou poptávku';
+            });
+        });
     </script>
 </body>
 </html>
