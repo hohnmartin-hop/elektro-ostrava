@@ -16,11 +16,11 @@
             --primary-dark: #1e40af;
             --primary-light: #eff6ff;
             --accent: #f59e0b;
+            --accent-hover: #d97706;
             --dark: #0f172a;
             --gray-700: #334155;
             --gray-600: #475569;
             --gray-100: #f1f5f9;
-            --gray-50: #f8fafc;
             --white: #ffffff;
             --border: #cbd5e1;
             --success: #16a34a;
@@ -37,8 +37,16 @@
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
 
+        /* Reálná fotografie elektroinstalace na pozadí s filtrem */
         body {
-            background-color: var(--gray-50);
+            background-color: #0f172a;
+            background-image: 
+                linear-gradient(rgba(15, 23, 42, 0.88), rgba(15, 23, 42, 0.92)),
+                url('https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&w=2000&q=80');
+            background-size: cover;
+            background-position: center top;
+            background-repeat: no-repeat;
+            background-attachment: scroll;
             color: var(--dark);
             line-height: 1.6;
             padding-bottom: 70px;
@@ -50,13 +58,15 @@
             padding: 0 20px;
         }
 
-        /* Záhlaví */
+        /* Horní navigační lišta */
         header {
-            background: var(--white);
+            background: rgba(255, 255, 255, 0.97);
+            backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border);
             position: sticky;
             top: 0;
             z-index: 40;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
         .nav-content {
             display: flex;
@@ -103,6 +113,7 @@
             text-decoration: none;
             font-weight: 700;
             font-size: 1rem;
+            border: 1px solid rgba(29, 78, 216, 0.2);
             transition: all 0.2s;
         }
         .header-phone:hover {
@@ -112,10 +123,12 @@
 
         /* Úvodní sekce (Hero) */
         .hero {
-            background: linear-gradient(180deg, var(--white) 0%, var(--gray-50) 100%);
-            padding: 48px 0 36px 0;
+            background: rgba(255, 255, 255, 0.96);
+            padding: 52px 24px 42px 24px;
             text-align: center;
-            border-bottom: 1px solid var(--border);
+            border-radius: 0 0 16px 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            margin-bottom: 24px;
         }
         .hero-badge {
             display: inline-flex;
@@ -128,6 +141,7 @@
             padding: 6px 14px;
             border-radius: 9999px;
             margin-bottom: 20px;
+            border: 1px solid rgba(29, 78, 216, 0.2);
         }
         .hero h2 {
             font-size: 2.3rem;
@@ -149,7 +163,8 @@
         .hero-actions {
             display: flex;
             justify-content: center;
-            gap: 14px;
+            align-items: center;
+            gap: 16px;
             flex-wrap: wrap;
             margin-bottom: 30px;
         }
@@ -163,26 +178,50 @@
             font-weight: 700;
             border-radius: 10px;
             text-decoration: none;
-            transition: all 0.2s;
+            transition: all 0.25s ease;
             cursor: pointer;
             border: none;
         }
         .btn-primary {
             background: var(--primary);
             color: var(--white);
-            box-shadow: 0 4px 14px rgba(29, 78, 216, 0.3);
+            box-shadow: 0 4px 14px rgba(29, 78, 216, 0.35);
         }
         .btn-primary:hover {
             background: var(--primary-dark);
-            transform: translateY(-1px);
+            transform: translateY(-2px);
         }
-        .btn-secondary {
-            background: var(--white);
-            color: var(--dark);
-            border: 1px solid var(--border);
+
+        /* Výrazné pulzující tlačítko poptávky */
+        .btn-cta-glow {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: #0f172a !important;
+            font-weight: 800;
+            border: 1px solid #fbbf24;
+            box-shadow: 0 4px 18px rgba(245, 158, 11, 0.45);
+            position: relative;
+            animation: cta-pulse 2.8s infinite;
         }
-        .btn-secondary:hover {
-            background: var(--gray-100);
+        .btn-cta-glow:hover {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            transform: translateY(-3px) scale(1.04);
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.7);
+        }
+        .btn-cta-glow:hover i {
+            transform: translateX(4px);
+            transition: transform 0.2s ease;
+        }
+
+        @keyframes cta-pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.65);
+            }
+            70% {
+                box-shadow: 0 0 0 14px rgba(245, 158, 11, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(245, 158, 11, 0);
+            }
         }
 
         /* Karty důvěryhodnosti */
@@ -190,7 +229,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 16px;
-            margin-top: 36px;
+            margin-top: 32px;
         }
         .trust-card {
             background: var(--white);
@@ -201,6 +240,7 @@
             align-items: center;
             gap: 12px;
             text-align: left;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
         }
         .trust-card i {
             color: var(--primary);
@@ -219,36 +259,41 @@
         /* Nadpisy sekcí */
         .section-header {
             text-align: center;
-            margin: 48px 0 32px 0;
+            margin: 54px 0 32px 0;
         }
         .section-header h3 {
-            font-size: 1.75rem;
-            font-weight: 700;
-            color: var(--dark);
+            font-size: 1.85rem;
+            font-weight: 800;
+            color: #ffffff;
             margin-bottom: 8px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
         .section-header p {
-            color: var(--gray-600);
-            font-size: 1rem;
+            color: #cbd5e1;
+            font-size: 1.05rem;
+            font-weight: 400;
         }
 
-        /* Nabídka služeb */
+        /* Služby */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
         }
         .service-card {
-            background: var(--white);
-            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.96);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-top: 4px solid var(--primary);
             border-radius: 14px;
             padding: 24px;
-            transition: all 0.2s;
+            transition: all 0.25s ease;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
         }
         .service-card:hover {
-            border-color: var(--primary);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+            border-top-color: var(--accent);
+            background: #ffffff;
         }
         .service-icon {
             width: 48px;
@@ -273,24 +318,27 @@
             line-height: 1.5;
         }
 
-        /* Pokrytí lokality */
+        /* Pokrytí */
         .coverage-box {
-            background: var(--dark);
+            background: rgba(15, 23, 42, 0.92);
+            backdrop-filter: blur(8px);
             color: var(--white);
             border-radius: 16px;
-            padding: 32px;
-            margin: 48px 0;
+            padding: 38px 24px;
+            margin: 54px 0;
             text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
         }
         .coverage-box h4 {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: 10px;
         }
         .coverage-box p {
             color: #94a3b8;
             max-width: 600px;
-            margin: 0 auto 20px auto;
+            margin: 0 auto 22px auto;
         }
         .locations {
             display: flex;
@@ -300,20 +348,21 @@
         }
         .location-tag {
             background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             color: #f8fafc;
-            padding: 6px 14px;
+            padding: 7px 16px;
             border-radius: 9999px;
             font-size: 0.9rem;
-            font-weight: 500;
+            font-weight: 600;
         }
 
-        /* Formulář a kontakt */
+        /* Kontaktní kontejner */
         .contact-container {
-            background: var(--white);
-            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.97);
             border-radius: 16px;
-            padding: 36px 24px;
+            padding: 38px 26px;
             margin-bottom: 48px;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
         }
         .form-grid {
             display: grid;
@@ -323,9 +372,9 @@
         }
         @media (min-width: 850px) {
             .form-grid {
-                grid-template-columns: 1.1fr 0.9fr;
+                grid-template-columns: 1.15fr 0.85fr;
                 gap: 48px;
-                padding: 0 12px;
+                padding: 0 10px;
             }
         }
 
@@ -349,13 +398,13 @@
             border: 1px solid var(--border);
             border-radius: 8px;
             font-size: 1rem;
-            background: var(--gray-50);
+            background: #f8fafc;
             transition: all 0.2s;
         }
         .form-group input:focus, .form-group textarea:focus {
             outline: none;
             border-color: var(--primary);
-            background: var(--white);
+            background: #ffffff;
             box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.15);
         }
         .form-row {
@@ -367,7 +416,6 @@
             .form-row { grid-template-columns: 1fr 1fr; }
         }
 
-        /* Stavová hláška po odeslání */
         .form-status {
             display: none;
             padding: 14px 18px;
@@ -389,9 +437,9 @@
             border: 1px solid #fca5a5;
         }
 
-        /* Přímý kontakt vpravo od formuláře */
+        /* Přímé kontaktní údaje */
         .direct-info {
-            background: var(--gray-50);
+            background: #f8fafc;
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 24px;
@@ -416,6 +464,7 @@
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
         }
         .contact-item-text span {
             display: block;
@@ -431,14 +480,15 @@
 
         /* Patička */
         footer {
-            border-top: 1px solid var(--border);
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
             padding: 24px 0;
             text-align: center;
             font-size: 0.85rem;
-            color: var(--gray-600);
+            color: #94a3b8;
+            background: rgba(15, 23, 42, 0.95);
         }
 
-        /* Spodní lišta pro rychlé volání na mobilu */
+        /* Plovoucí mobilní lišta */
         .mobile-bar {
             display: flex;
             position: fixed;
@@ -450,7 +500,7 @@
             padding: 10px 16px;
             gap: 10px;
             z-index: 50;
-            box-shadow: 0 -4px 16px rgba(0,0,0,0.08);
+            box-shadow: 0 -4px 16px rgba(0,0,0,0.15);
         }
         .mobile-btn {
             flex: 1;
@@ -469,9 +519,9 @@
             color: var(--white);
         }
         .mobile-btn-msg {
-            background: var(--gray-100);
-            color: var(--dark);
-            border: 1px solid var(--border);
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: #0f172a;
+            border: 1px solid #fbbf24;
         }
 
         @media (min-width: 768px) {
@@ -484,7 +534,7 @@
 </head>
 <body>
 
-    <!-- Záhlaví -->
+    <!-- Horní lišta -->
     <header>
         <div class="container nav-content">
             <a href="#" class="brand">
@@ -501,9 +551,9 @@
         </div>
     </header>
 
-    <!-- Úvodní sekce (Hero) -->
-    <section class="hero">
-        <div class="container">
+    <div class="container">
+        <!-- Úvodní sekce (Hero) -->
+        <section class="hero">
             <div class="hero-badge">
                 <i data-lucide="shield-check" style="width: 16px; height: 16px;"></i>
                 Osvědčení dle NV č. 194/2022 Sb. § 7 (dříve vyhl. 50)
@@ -516,13 +566,12 @@
                     <i data-lucide="phone" style="width: 20px; height: 20px;"></i>
                     Zavolat: 703 371 479
                 </a>
-                <a href="#poptavka" class="btn btn-secondary">
+                <a href="#poptavka" class="btn btn-cta-glow">
                     <i data-lucide="send" style="width: 20px; height: 20px;"></i>
-                    Napsat poptávku
+                    Napsat poptávku (Nezávazně zdarma)
                 </a>
             </div>
 
-            <!-- Karty důvěryhodnosti -->
             <div class="trust-grid">
                 <div class="trust-card">
                     <i data-lucide="badge-check" style="width: 28px; height: 28px;"></i>
@@ -546,163 +595,155 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Přehled služeb -->
-    <main class="container">
-        <div class="section-header">
-            <h3>S čím vám mohu pomoci</h3>
-            <p>Drobné i větší elektroinstalační práce v bytech, domech a kancelářích</p>
-        </div>
-
-        <div class="services-grid">
-            <div class="service-card">
-                <div class="service-icon"><i data-lucide="zap"></i></div>
-                <h4>Zapojení spotřebičů</h4>
-                <p>Odborná instalace varných desek (indukce i sklokeramika), vestavných trub, digestoří, praček a myček včetně potvrzení pro záruční list.</p>
+        <!-- Služby -->
+        <main>
+            <div class="section-header">
+                <h3>S čím vám mohu pomoci</h3>
+                <p>Drobné i větší elektroinstalační práce v bytech, domech a kancelářích</p>
             </div>
 
-            <div class="service-card">
-                <div class="service-icon"><i data-lucide="toggle-left"></i></div>
-                <h4>Zásuvky, vypínače a jističe</h4>
-                <p>Výměna starých, uvolněných nebo popraskaných zásuvek a vypínačů. Výměna vyběhaných jističů v rozvodnici v panelových i cihlových bytech.</p>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon"><i data-lucide="zap"></i></div>
+                    <h4>Zapojení spotřebičů</h4>
+                    <p>Odborná instalace varných desek (indukce i sklokeramika), vestavných trub, digestoří, praček a myček včetně potvrzení pro záruční list.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon"><i data-lucide="toggle-left"></i></div>
+                    <h4>Zásuvky, vypínače a jističe</h4>
+                    <p>Výměna starých, uvolněných nebo popraskaných zásuvek a vypínačů. Výměna vyběhaných jističů v rozvodnici v panelových i cihlových bytech.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon"><i data-lucide="lightbulb"></i></div>
+                    <h4>Montáž svítidel a LED</h4>
+                    <p>Instalace stropních i nástěnných svítidel, lustrů, bodovek a moderního úsporného LED osvětlení včetně zapojení ovladačů.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon"><i data-lucide="alert-triangle"></i></div>
+                    <h4>Hledání a odstranění závad</h4>
+                    <p>Rychlá diagnostika a oprava, pokud vám padá jistič, vyhazuje chránič, nejde proud v části bytu nebo cítíte spáleninu.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon"><i data-lucide="wrench"></i></div>
+                    <h4>Drobné opravy elektro</h4>
+                    <p>Opravy a úpravy kabeláže, zprovoznění nefunkčních elektrických okruhů, zapojení termostatů a drobné servisní práce.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon"><i data-lucide="check-circle-2"></i></div>
+                    <h4>Poradenství a konzultace</h4>
+                    <p>Zhodnocení stavu staré hliníkové elektroinstalace, návrh úprav před rekonstrukcí kuchyně nebo koupelny, přeměření napětí.</p>
+                </div>
             </div>
 
-            <div class="service-card">
-                <div class="service-icon"><i data-lucide="lightbulb"></i></div>
-                <h4>Montáž svítidel a LED</h4>
-                <p>Instalace stropních i nástěnných svítidel, lustrů, bodovek a moderního úsporného LED osvětlení včetně zapojení ovladačů.</p>
+            <!-- Pokrytí v Ostravě -->
+            <div class="coverage-box">
+                <h4>Lokalita působení: Ostrava a blízké okolí</h4>
+                <p>Jsem přímo z Hrabové. Neplatíte zbytečné peníze za daleký dojezd firem z jiných okresů.</p>
+                <div class="locations">
+                    <span class="location-tag">Ostrava - Hrabová</span>
+                    <span class="location-tag">Ostrava - Jih (Dubina, Hrabůvka, Zábřeh, Výškovice)</span>
+                    <span class="location-tag">Poruba</span>
+                    <span class="location-tag">Centrum a Přívoz</span>
+                    <span class="location-tag">Vratimov a Paskov</span>
+                </div>
             </div>
 
-            <div class="service-card">
-                <div class="service-icon"><i data-lucide="alert-triangle"></i></div>
-                <h4>Hledání a odstranění závad</h4>
-                <p>Rychlá diagnostika a oprava, pokud vám padá jistič, vyhazuje chránič, nejde proud v části bytu nebo cítíte spáleninu.</p>
-            </div>
+            <!-- Kontaktní formulář -->
+            <div id="poptavka" class="contact-container">
+                <div class="section-header" style="margin-top: 0;">
+                    <h3 style="color: var(--dark); text-shadow: none;">Napište poptávku</h3>
+                    <p style="color: var(--gray-600);">Popište, co potřebujete doma vyřešit. Ozvu se vám zpět s nezávaznou nabídkou.</p>
+                </div>
 
-            <div class="service-card">
-                <div class="service-icon"><i data-lucide="wrench"></i></div>
-                <h4>Drobné opravy elektro</h4>
-                <p>Opravy a úpravy kabeláže, zprovoznění nefunkčních elektrických okruhů, zapojení termostatů a drobné servisní práce.</p>
-            </div>
+                <div class="form-grid">
+                    <form id="inquiryForm" class="inquiry-form">
+                        <input type="hidden" name="access_key" value="0ec24fab-109b-487b-b7ec-d2dec27c123d">
+                        <input type="hidden" name="subject" value="Nová poptávka z webu Elektro MaM!">
+                        <input type="hidden" name="from_name" value="Web Elektro MaM">
+                        <input type="checkbox" name="botcheck" style="display: none;">
 
-            <div class="service-card">
-                <div class="service-icon"><i data-lucide="check-circle-2"></i></div>
-                <h4>Poradenství a konzultace</h4>
-                <p>Zhodnocení stavu staré hliníkové elektroinstalace, návrh úprav před rekonstrukcí kuchyně nebo koupelny, přeměření napětí.</p>
-            </div>
-        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Vaše jméno *</label>
+                                <input type="text" id="name" name="name" placeholder="Např. Jan Novák" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Telefonní číslo *</label>
+                                <input type="tel" id="phone" name="phone" placeholder="Např. 777 123 456" required>
+                            </div>
+                        </div>
 
-        <!-- Pokrytí v Ostravě -->
-        <div class="coverage-box">
-            <h4>Lokalita působení: Ostrava a blízké okolí</h4>
-            <p>Jsem přímo z Hrabové. Neplatíte zbytečné peníze za daleký dojezd firem z jiných okresů.</p>
-            <div class="locations">
-                <span class="location-tag">Ostrava - Hrabová</span>
-                <span class="location-tag">Ostrava - Jih (Dubina, Hrabůvka, Zábřeh, Výškovice)</span>
-                <span class="location-tag">Poruba</span>
-                <span class="location-tag">Centrum a Přívoz</span>
-                <span class="location-tag">Vratimov a Paskov</span>
-            </div>
-        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Váš e-mail</label>
+                                <input type="email" id="email" name="email" placeholder="vas@email.cz">
+                            </div>
+                            <div class="form-group">
+                                <label for="location">Městská část / adresa</label>
+                                <input type="text" id="location" name="location" placeholder="Např. Ostrava-Poruba, Výškovice">
+                            </div>
+                        </div>
 
-        <!-- Kontaktní formulář (Odesílání bez opuštění stránky) -->
-        <div id="poptavka" class="contact-container">
-            <div class="section-header" style="margin-top: 0;">
-                <h3>Napište poptávku</h3>
-                <p>Popište, co potřebujete doma vyřešit. Ozvu se vám zpět s nezávaznou nabídkou.</p>
-            </div>
-
-            <div class="form-grid">
-                <!-- Formulář s ID pro JavaScript -->
-                <form id="inquiryForm" class="inquiry-form">
-                    <!-- Tvůj aktivní klíč z Web3Forms -->
-                    <input type="hidden" name="access_key" value="0ec24fab-109b-487b-b7ec-d2dec27c123d">
-                    
-                    <!-- Nastavení zprávy -->
-                    <input type="hidden" name="subject" value="Nová poptávka z webu Elektro MaM!">
-                    <input type="hidden" name="from_name" value="Web Elektro MaM">
-                    
-                    <!-- Ochrana proti spamu -->
-                    <input type="checkbox" name="botcheck" style="display: none;">
-
-                    <div class="form-row">
                         <div class="form-group">
-                            <label for="name">Vaše jméno *</label>
-                            <input type="text" id="name" name="name" placeholder="Např. Jan Novák" required>
+                            <label for="message">Co potřebujete zapojit nebo opravit? *</label>
+                            <textarea id="message" name="message" rows="4" placeholder="Např. potřebuji zapojit novou indukční desku a potvrdit záruční list..." required></textarea>
                         </div>
-                        <div class="form-group">
-                            <label for="phone">Telefonní číslo *</label>
-                            <input type="tel" id="phone" name="phone" placeholder="Např. 777 123 456" required>
+
+                        <button type="submit" id="submitBtn" class="btn btn-primary" style="margin-top: 8px;">
+                            <i data-lucide="send" style="width: 18px; height: 18px;"></i>
+                            <span>Odeslat nezávaznou poptávku</span>
+                        </button>
+
+                        <div id="formStatus" class="form-status"></div>
+                    </form>
+
+                    <div class="direct-info">
+                        <h4 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 4px;">Raději rovnou zavoláte?</h4>
+                        <p style="font-size: 0.9rem; color: var(--gray-600); margin-bottom: 12px;">Při haváriích a akutních závadách volejte kdykoliv přímo na telefon.</p>
+
+                        <div class="contact-item">
+                            <div class="contact-item-icon"><i data-lucide="phone"></i></div>
+                            <div class="contact-item-text">
+                                <span>Telefonní kontakt</span>
+                                <a href="tel:+420703371479">703 371 479</a>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="email">Váš e-mail</label>
-                            <input type="email" id="email" name="email" placeholder="vas@email.cz">
+                        <div class="contact-item">
+                            <div class="contact-item-icon"><i data-lucide="mail"></i></div>
+                            <div class="contact-item-text">
+                                <span>Přímý e-mail</span>
+                                <a href="mailto:elektro.mam@email.cz">elektro.mam@email.cz</a>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="location">Městská část / adresa</label>
-                            <input type="text" id="location" name="location" placeholder="Např. Ostrava-Poruba, Výškovice">
+
+                        <div class="contact-item">
+                            <div class="contact-item-icon"><i data-lucide="map-pin"></i></div>
+                            <div class="contact-item-text">
+                                <span>Základna</span>
+                                <strong>Ostrava - Hrabová</strong>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label for="message">Co potřebujete zapojit nebo opravit? *</label>
-                        <textarea id="message" name="message" rows="4" placeholder="Např. potřebuji zapojit novou indukční desku a potvrdit záruční list..." required></textarea>
-                    </div>
-
-                    <button type="submit" id="submitBtn" class="btn btn-primary" style="margin-top: 8px;">
-                        <i data-lucide="send" style="width: 18px; height: 18px;"></i>
-                        <span>Odeslat nezávaznou poptávku</span>
-                    </button>
-
-                    <!-- Výsledná hláška přímo pod tlačítkem -->
-                    <div id="formStatus" class="form-status"></div>
-                </form>
-
-                <!-- Přímý kontakt -->
-                <div class="direct-info">
-                    <h4 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 4px;">Raději rovnou zavoláte?</h4>
-                    <p style="font-size: 0.9rem; color: var(--gray-600); margin-bottom: 12px;">Při haváriích a akutních závadách volejte kdykoliv přímo na telefon.</p>
-
-                    <div class="contact-item">
-                        <div class="contact-item-icon"><i data-lucide="phone"></i></div>
-                        <div class="contact-item-text">
-                            <span>Telefonní kontakt</span>
-                            <a href="tel:+420703371479">703 371 479</a>
-                        </div>
-                    </div>
-
-                    <div class="contact-item">
-                        <div class="contact-item-icon"><i data-lucide="mail"></i></div>
-                        <div class="contact-item-text">
-                            <span>Přímý e-mail</span>
-                            <a href="mailto:elektro.mam@email.cz">elektro.mam@email.cz</a>
-                        </div>
-                    </div>
-
-                    <div class="contact-item">
-                        <div class="contact-item-icon"><i data-lucide="map-pin"></i></div>
-                        <div class="contact-item-text">
-                            <span>Základna</span>
-                            <strong>Ostrava - Hrabová</strong>
-                        </div>
-                    </div>
-
-                    <div class="contact-item">
-                        <div class="contact-item-icon"><i data-lucide="award"></i></div>
-                        <div class="contact-item-text">
-                            <span>Odborná způsobilost</span>
-                            <strong>NV č. 194/2022 Sb. § 7</strong>
+                        <div class="contact-item">
+                            <div class="contact-item-icon"><i data-lucide="award"></i></div>
+                            <div class="contact-item-text">
+                                <span>Odborná způsobilost</span>
+                                <strong>NV č. 194/2022 Sb. § 7</strong>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </main>
+        </main>
+    </div>
 
     <!-- Patička -->
     <footer>
@@ -711,7 +752,7 @@
         </div>
     </footer>
 
-    <!-- Plovoucí lišta pro mobilní zařízení -->
+    <!-- Mobilní lišta -->
     <div class="mobile-bar">
         <a href="tel:+420703371479" class="mobile-btn mobile-btn-call">
             <i data-lucide="phone" style="width: 18px; height: 18px;"></i>
@@ -725,10 +766,8 @@
 
     <!-- Skripty -->
     <script>
-        // Inicializace ikon
         lucide.createIcons();
 
-        // Odeslání formuláře na pozadí bez opuštění stránky
         const form = document.getElementById('inquiryForm');
         const submitBtn = document.getElementById('submitBtn');
         const statusBox = document.getElementById('formStatus');
@@ -736,7 +775,6 @@
         form.addEventListener('submit', function(e) {
             e.preventDefault();
 
-            // Vizuální indikace odesílání
             submitBtn.disabled = true;
             submitBtn.style.opacity = '0.75';
             submitBtn.querySelector('span').textContent = 'Odesílám poptávku...';
